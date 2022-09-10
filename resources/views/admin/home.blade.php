@@ -1,10 +1,12 @@
 @extends('admin.layout.app')
 
+@section('heading', 'Dashboard')
+
 @section('main_content')
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Dashboard</h1>
+            <h1>@yield('heading')</h1>
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
