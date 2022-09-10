@@ -44,7 +44,7 @@ class AdminLoginController extends Controller
 
            \Mail::to($request->email)->send(new Websitemail($subject, $message));
 
-           return redirect()->route('admin_login')->with('success', 'Please check your email and follow the steps there');
+           return redirect()->route('admin_login')->with('success', 'We have sent email, please check your email and follow the steps there');
        
     }
 
@@ -69,5 +69,28 @@ class AdminLoginController extends Controller
     public function logout(){
         Auth::guard('admin')->logout();
         return redirect()->route('admin_login');
+    }
+
+    public function reset_password($token, $email){
+        $admin_data = Admin::where('token', $token)->where('email', $email)->first();
+        if(!$admin_data){
+            return redirect()->route('admin_login');
+        }
+
+        return view('admin.reset_password', compact('token', 'email'));
+    }
+
+    public function reset_password_submit(Request $request){
+        $request->validate([
+            'password' => 'required',
+            'retype_password' => 'required | same:password'
+           ]);
+
+           $admin_data = Admin::where('token', $request->token)->where('email', $request->email)->first();
+           $admin_data->password = Hash::make($request->password);
+           $admin_data->token = '';
+           $admin_data->update();
+
+           return redirect()->route('admin_login')->with('success', 'Password reset successfully');
     }
 }
