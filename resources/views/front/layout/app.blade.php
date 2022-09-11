@@ -65,14 +65,20 @@
                     <div class="col-md-4 d-flex align-items-center">
                         <div class="logo">
                             <a href="{{ route('home') }}">
-                                <img src="uploads/logo.png" alt="">
+                                <img src="{{ asset('uploads/logo.png') }}" alt="">
                             </a>
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <div class="ad-section-1">
-                            <a href=""><img src="uploads/ad-1.png" alt=""></a>
-                        </div>
+                        @if($global_top_ad_data->top_ad_status == 'Show')
+                            <div class="ad-section-1">
+                                @if ( $global_top_ad_data->top_ad_url == '')
+                                    <img src="{{ asset('uploads/'.$global_top_ad_data->top_ad) }}" alt="">
+                                @else
+                                    <a href="{{ '$global_top_ad_data->top_ad_url'  }}"><img src="{{ asset('uploads/'.$global_top_ad_data->top_ad) }}" alt=""></a>
+                                @endif
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
