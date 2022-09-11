@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\HomeAdvertisement;
 use App\Models\TopAdvertisement;
+use App\Models\SidebarAdvertisement;
 
 class AdminAdvertisementController extends Controller
 {
@@ -20,17 +21,17 @@ class AdminAdvertisementController extends Controller
         if($request->hasFile('top_ad')){
 
             $request->validate([
-                'top_ad' => 'image|mimes:jpg,jpeg,png,gif',
+                'above_search_ad' => 'image|mimes:jpg,jpeg,png,gif',
                 
                ]);
 
                 // remove photo from db
-               unlink(public_path('uploads/'.$home_ad_data->top_ad));
+               unlink(public_path('uploads/'.$home_ad_data->above_search_ad));
 
-               $ext = $request->file('top_ad')->extension();
-               $final_name = 'top_ad'.'.'.$ext;
+               $ext = $request->file('above_search_ad')->extension();
+               $final_name = 'above_search_ad'.'.'.$ext;
 
-               $request->file('top_ad')->move(public_path('uploads/'), $final_name);
+               $request->file('above_search_ad')->move(public_path('uploads/'), $final_name);
 
                $home_ad_data->top_ad = $final_name;
            }
@@ -54,8 +55,8 @@ class AdminAdvertisementController extends Controller
                $home_ad_data->above_footer_ad = $final_name;
            }
 
-        $home_ad_data->top_ad_url = $request->top_ad_url;
-        $home_ad_data->top_ad_status = $request->top_ad_status;
+        $home_ad_data->above_search_ad_url = $request->above_search_ad_url;
+        $home_ad_data->above_search_ad_status = $request->above_search_ad_status;
         $home_ad_data->above_footer_ad_url = $request->above_footer_ad_url;
         $home_ad_data->above_footer_ad_status = $request->above_footer_ad_status;
         $home_ad_data->update();
@@ -100,5 +101,10 @@ class AdminAdvertisementController extends Controller
 
         return redirect()->back()->with('success', 'Data is updated successfully');
 
+    }
+
+    public function sidebar_ad_show(){
+        $sidebar_ad_data = SidebarAdvertisement::get();
+        return view('admin.advertisement_sidebar_view', compact('sidebar_ad_data'));
     }
 }
