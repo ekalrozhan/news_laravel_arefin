@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="section-body">
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin_category_store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-6">
@@ -20,7 +20,7 @@
                             <div class="card-body">
                                
                                     <div class="form-group mb-3">
-                                        <label>Category Name</label>
+                                        <label>Category Name*</label>
                                         <input type="text" class="form-control" name="category_name" value="">
                                     </div>
                                     <div class="form-group mb-3">
@@ -33,7 +33,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label>Category Order</label>
+                                        <label>Category Order*</label>
                                         <input type="text" class="form-control" name="category_order" value="">
                                     </div>
                                     
