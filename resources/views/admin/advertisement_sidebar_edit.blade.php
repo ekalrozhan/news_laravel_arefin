@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="section-body">
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin_sidebar_ad_update', $sidebar_ad_data->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-6">

@@ -131,11 +131,42 @@ class AdminAdvertisementController extends Controller
         $sidebar_ad_data->sidebar_ad_location = $request->sidebar_ad_location;
         $sidebar_ad_data->save();
 
-        return redirect()->back()->with('success', 'Data is created successfully');
+        return redirect()->route('admin_sidebar_ad_show')->with('success', 'Data is created successfully');
     }
 
     public function sidebar_ad_edit($id){
         $sidebar_ad_data = SidebarAdvertisement::where('id', $id)->first();
         return view('admin.advertisement_sidebar_edit', compact('sidebar_ad_data'));
     }
+
+    public function sidebar_ad_update(Request $request, $id){
+       $sidebar_ad_data = SidebarAdvertisement::where('id', $id)->first();
+
+       
+       if($request->hasFile('sidebar_ad')){
+
+        $request->validate([
+            'sidebar_ad' => 'image|mimes:jpg,jpeg,png,gif',
+            
+           ]);
+
+            // remove photo from db
+           unlink(public_path('uploads/'.$sidebar_ad_data->sidebar_ad));
+
+           $now = time();
+           $ext = $request->file('sidebar_ad')->extension();
+           $final_name = 'sidebar_ad_'.$now.'.'.$ext;
+
+           $request->file('sidebar_ad')->move(public_path('uploads/'), $final_name);
+
+           $sidebar_ad_data->sidebar_ad = $final_name;
+       }
+       
+       $sidebar_ad_data->sidebar_ad_url = $request->sidebar_ad_url;
+       $sidebar_ad_data->sidebar_ad_location = $request->sidebar_ad_location;
+       $sidebar_ad_data->update();
+
+       return redirect()->route('admin_sidebar_ad_show')->with('success', 'Data is updated successfully');
+
+    } 
 }

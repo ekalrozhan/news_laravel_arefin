@@ -66,3 +66,5 @@ Route::post('/admin/sidebar-advertisement-store', [AdminAdvertisementController:
 
 Route::get('/admin/sidebar-advertisement-edit/{id}', [AdminAdvertisementController::class, 'sidebar_ad_edit'])->name('admin_sidebar_ad_edit')->middleware('admin:admin');
 
+Route::post('/admin/sidebar-advertisement-update/{id}', [AdminAdvertisementController::class, 'sidebar_ad_update'])->name('admin_sidebar_ad_update')->middleware('admin:admin');
+
