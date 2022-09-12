@@ -133,4 +133,9 @@ class AdminAdvertisementController extends Controller
 
         return redirect()->back()->with('success', 'Data is created successfully');
     }
+
+    public function sidebar_ad_edit($id){
+        $sidebar_ad_data = SidebarAdvertisement::where('id', $id)->first();
+        return view('admin.advertisement_sidebar_edit', compact('sidebar_ad_data'));
+    }
 }
