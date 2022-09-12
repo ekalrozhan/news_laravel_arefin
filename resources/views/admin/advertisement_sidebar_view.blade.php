@@ -29,19 +29,20 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Photo</td>
-                                        <td>Url</td>
-                                        <td>Location</td>
-                                        <td class="pt_10 pb_10">
-                                           
-                                            <a href="" class="btn btn-primary" >Edit</a>
-                                            <a href="" class="btn btn-danger" onClick="return confirm('Are you sure?');">Delete</a>
-                                        </td>
-                                        
-                                    </tr>
-                                  
+                                    @foreach ($sidebar_ad_data as $row)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td><img src="{{ asset('uploads/'.$row->sidebar_ad) }}" style="width: 200px;"></td>
+                                            <td>{{ $row->sidebar_ad_url }}</td>
+                                            <td>{{ $row->sidebar_ad_location }}</td>
+                                            <td class="pt_10 pb_10">
+                                            
+                                                <a href="" class="btn btn-primary" >Edit</a>
+                                                <a href="" class="btn btn-danger" onClick="return confirm('Are you sure?');">Delete</a>
+                                            </td>
+                                            
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
