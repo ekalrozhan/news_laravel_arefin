@@ -8,7 +8,7 @@
         <div class="section-header">
             <h1>@yield('heading')</h1>
             <div class="ml-auto">
-                <a href="" class="btn btn-primary"><i class="fas fa-plus"></i> Add</a>
+                <a href="{{ route('admin_sidebar_ad_create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add</a>
             </div>
         </div>
 

@@ -107,4 +107,30 @@ class AdminAdvertisementController extends Controller
         $sidebar_ad_data = SidebarAdvertisement::get();
         return view('admin.advertisement_sidebar_view', compact('sidebar_ad_data'));
     }
+
+    public function sidebar_ad_create(){
+        return view('admin.advertisement_sidebar_create');
+    }
+
+    public function sidebar_ad_store(Request $request){
+
+        $sidebar_ad_data = new SidebarAdvertisement();
+        $request->validate([
+            'sidebar_ad' => 'required|image|mimes:jpg,jpeg,png,gif',
+           ], ['sidebar_ad.required' => 'Please select a photo for ads']);
+
+
+        $now = time();
+        $ext = $request->file('sidebar_ad')->extension();
+         $final_name = 'sidebar_ad_'.$now.'.'.$ext;
+        $request->file('sidebar_ad')->move(public_path('uploads/'), $final_name);
+         $sidebar_ad_data->sidebar_ad = $final_name;
+
+        
+        $sidebar_ad_data->sidebar_ad_url = $request->sidebar_ad_url;
+        $sidebar_ad_data->sidebar_ad_location = $request->sidebar_ad_location;
+        $sidebar_ad_data->save();
+
+        return redirect()->back()->with('success', 'Data is created successfully');
+    }
 }
