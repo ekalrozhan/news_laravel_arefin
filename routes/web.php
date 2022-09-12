@@ -68,3 +68,4 @@ Route::get('/admin/sidebar-advertisement-edit/{id}', [AdminAdvertisementControll
 
 Route::post('/admin/sidebar-advertisement-update/{id}', [AdminAdvertisementController::class, 'sidebar_ad_update'])->name('admin_sidebar_ad_update')->middleware('admin:admin');
 
+Route::get('/admin/sidebar-advertisement-delete/{id}', [AdminAdvertisementController::class, 'sidebar_ad_delete'])->name('admin_sidebar_ad_delete')->middleware('admin:admin');

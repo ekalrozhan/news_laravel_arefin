@@ -169,4 +169,13 @@ class AdminAdvertisementController extends Controller
        return redirect()->route('admin_sidebar_ad_show')->with('success', 'Data is updated successfully');
 
     } 
+
+    public function sidebar_ad_delete($id){
+        $sidebar_ad_data = SidebarAdvertisement::where('id', $id)->first();
+        unlink(public_path('uploads/'.$sidebar_ad_data->sidebar_ad));
+
+        $sidebar_ad_data->delete();
+        return redirect()->route('admin_sidebar_ad_show')->with('success', 'Data is deleted successfully');
+        
+    }
 }
