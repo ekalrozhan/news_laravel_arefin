@@ -37,8 +37,8 @@
                                             <td>{{ $row->category_order }}</td>
                                             <td class="pt_10 pb_10">
                                             
-                                                <a href="" class="btn btn-primary" >Edit</a>
-                                                <a href="" class="btn btn-danger" onClick="return confirm('Are you sure?');">Delete</a>
+                                                <a href="{{ route('admin_category_edit', $row->id) }}" class="btn btn-primary" >Edit</a>
+                                                <a href="{{ route('admin_category_delete', $row->id) }}" class="btn btn-danger" onClick="return confirm('Are you sure?');">Delete</a>
                                             </td>
                                             
                                         </tr>

@@ -31,6 +31,32 @@ class AdminCategoryController extends Controller
 
         return redirect()->route('admin_category_show')->with('success', 'Data is created successfully');
     }
+
+    public function edit($id){
+        $category_data = Category::where('id', $id)->first();
+        return view('admin.category_edit', compact('category_data'));
+    }
    
+    public function update(Request $request, $id){
+
+        $request->validate([
+            'category_name' => 'required',
+            'category_order' => 'required',
+        ]);
+
+        $category_data = Category::where('id', $id)->first();
+        $category_data->category_name = $request->category_name;
+        $category_data->show_on_menu = $request->show_on_menu;
+        $category_data->category_order = $request->category_order;
+        $category_data->update();
+ 
+        return redirect()->route('admin_category_show')->with('success', 'Data is updated successfully');
+    }
+
+    public function delete($id){
+        $category_data = Category::where('id', $id)->first();
+        $category_data->delete();
+        return redirect()->route('admin_category_show')->with('success', 'Data is deleted successfully');
+    }
 
 }
